@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import random
 
 show_animation  = True
-# bias towards states closer to goal
-weighted_a_star = 1.1
 
 class Node:
     def __init__(self, parent=None, position=None):
@@ -21,32 +19,18 @@ class Node:
             return True
 
 def heuristic(cur_node, goal_node):
+    w = 1 # weigth of heuristic
     dist = np.sqrt((cur_node.position[0] - goal_node.position[0])**2 + (cur_node.position[1]  - goal_node.position[1])**2)
-    return weighted_a_star*dist
-
-def collision_check(omap, node):
-    nx = node[0]
-    ny = node[1]
-    ox = omap[0]
-    oy = omap[1]
-
-    col = False
-
-    for i in range(len(ox)):
-        if nx == ox[i] and ny == oy[i]:
-            col = True
-            break
-
-    return col
+    return w*dist
 
 def get_action():
     # dx, dy, cost
     action_set = [[0,-1,1], [0,1,1], [-1,0,1], [1,0,1],
-    [1,-1,np.sqrt(2)], [1,1,np.sqrt(2)], [-1,1,np.sqrt(2)], [-1,-1,np.sqrt(2)]]
+                          [1,-1,np.sqrt(2)], [1,1,np.sqrt(2)], [-1,1,np.sqrt(2)], [-1,-1,np.sqrt(2)]]
     return action_set
 
 # a star algorithm
-def a_star(start, goal, omap):
+def a_star(map_, start, goal):
 
     # initialize
     start_node = Node(None, start)
@@ -67,7 +51,7 @@ def a_star(start, goal, omap):
                 cur_ind = ind
 
         # If goal, get optimal path
-        if cur_node.position == goal_node.position:
+        if cur_node == goal_node:
             opt_path = []
 
             node = cur_node
@@ -76,18 +60,11 @@ def a_star(start, goal, omap):
                 opt_path.append(node.position)
                 node = node.parent
             print("opt path : ", opt_path[::-1])
-            print("opt_path_shape : ", np.shape(opt_path))
             return opt_path[::-1]
 
         # if not goal, delete from 'Open list' and add to 'Closed list'
         Open.pop(cur_ind)
         Closed.append(cur_node)
-
-        # show graph
-        if show_animation:
-            plt.plot(cur_node.position[0], cur_node.position[1], 'yo', alpha=0.5)
-            if len(Closed) % 100 == 0:
-                plt.pause(0.001)
 
         # search child nodes
         action_set = get_action()
@@ -95,7 +72,12 @@ def a_star(start, goal, omap):
             # position of child candidate
             child_cand = (cur_node.position[0] + action[0], cur_node.position[1] + action[1])
 
-            if collision_check(omap, child_cand):
+            # check within map
+            if child_cand[0] >= np.shape(map_)[0] and child_cand[0] <= 0 and child_cand[1] >= np.shape(map_)[1] and  child_cand[1] <= 0:
+                continue
+
+            # check obstacle
+            if map_[child_cand[0]][child_cand[1]] == 1:
                 continue
 
             # create new node
@@ -118,53 +100,58 @@ def a_star(start, goal, omap):
                     if node == child and node.f > child.f:
                         node.f = child.f
 
+
+
 def main():
+#     map_ = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-    # INITIALIZE - 1)start, 2)goal, 3)map
-    start = (10, 5)
-    goal = (35, 5)
+    start = (0, 0)
+    goal = (9, 6)
 
-    ox, oy = [], []
+    len_mapx = 10
+    len_mapy = 10
 
-    for i in range(61):
-        ox.append(i)
-        oy.append(0)
-    for i in range(61):
-        ox.append(0)
-        oy.append(i)
-    for i in range(61):
-        ox.append(i)
-        oy.append(60)
-    for i in range(60):
-        ox.append(60)
-        oy.append(i)
-    for i in range(51):
-        ox.append(30)
-        oy.append(i)
-    for i in range(21):
-        ox.append(30+i)
-        oy.append(10)
+    map_ = np.zeros((len_mapx, len_mapy))
+    for i in range(len_mapx):
+        for j in range(len_mapy):
+            if (i == start[0] and j == start[1]) or (i == goal[0] and j == goal[1]):
+                pass
+            else:
+                _n = random.randint(1,10)
+                if _n % 3 == 0:
+                    map_[i,j] = 1
+    map_ = list(map_)
 
-    omap = [ox, oy]
+    opt_path = a_star(map_, start, goal)
+    opt_path = np.array(np.array(opt_path))
+    map_ = np.array(map_)
 
     if show_animation == True:
         plt.figure(figsize=(10,10))
-        plt.plot(start[0], start[1], 'bs',  markersize=7)
-        plt.text(start[0], start[1]+0.5, 'start', fontsize=12)
-        plt.plot(goal[0], goal[1], 'rs',  markersize=7)
-        plt.text(goal[0], goal[1]+0.5, 'goal', fontsize=12)
-        plt.plot(ox, oy, '.k',  markersize=10)
+        plt.plot(start[0], start[1], 'bs',  markersize=10)
+        plt.text(start[0], start[1]+0.1, 'start', fontsize=12)
+        plt.plot(goal[0], goal[1], 'rs',  markersize=10)
+        plt.text(goal[0], goal[1]+0.1, 'goal', fontsize=12)
+
+        for i in range(10):
+            for j in range(10):
+                if map_[i,j] == 1:
+                    plt.plot(i,j, 'ks', markersize=30)
+
         plt.grid(True)
         plt.axis("equal")
-        plt.xlabel("X [m]"), plt.ylabel("Y [m]")
+        plt.plot(opt_path[:,0], opt_path[:,1], "co-")
+        plt.xlabel("X"), plt.ylabel("Y")
         plt.title("A star algorithm", fontsize=20)
-
-    opt_path = a_star(start, goal, omap)
-    print("Optimal path found!")
-    opt_path = np.array(opt_path)
-
-    if show_animation == True:
-        plt.plot(opt_path[:,0], opt_path[:,1], "c.-")
         plt.show()
 
 

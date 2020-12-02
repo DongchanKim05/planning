@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import random
 
 show_animation  = True
-# bias towards states closer to goal
-weighted_a_star = 1.1
 
 class Node:
     def __init__(self, parent=None, position=None):
@@ -13,16 +11,10 @@ class Node:
         self.position = position
 
         self.f = 0
-        self.g = 0
-        self.h = 0
 
     def __eq__(self, other):
         if self.position == other.position:
             return True
-
-def heuristic(cur_node, goal_node):
-    dist = np.sqrt((cur_node.position[0] - goal_node.position[0])**2 + (cur_node.position[1]  - goal_node.position[1])**2)
-    return weighted_a_star*dist
 
 def collision_check(omap, node):
     nx = node[0]
@@ -105,9 +97,7 @@ def a_star(start, goal, omap):
             if child in Closed:
                 continue
 
-            child.g = cur_node.g + action[2]
-            child.h = heuristic(child, goal_node)
-            child.f = child.g + child.h
+            child.f = cur_node.f + action[2]
 
             # if node is not in 'Open list', add it
             if child not in Open:
@@ -157,7 +147,7 @@ def main():
         plt.grid(True)
         plt.axis("equal")
         plt.xlabel("X [m]"), plt.ylabel("Y [m]")
-        plt.title("A star algorithm", fontsize=20)
+        plt.title("Dijkstra algorithm", fontsize=20)
 
     opt_path = a_star(start, goal, omap)
     print("Optimal path found!")
