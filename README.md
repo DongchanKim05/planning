@@ -1,1 +1,1 @@
-# planning
+# lanning
