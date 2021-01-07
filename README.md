@@ -8,8 +8,6 @@
 
 # Following algorithm
 
---- 
-
 학습 시
 1. `SAC_config.json` 에서 `"inference_mode" : "False"` 로 설정
 2. `SAC_config.json` 에서 `"load_model" : "False"` 로 설정
