@@ -8,4 +8,4 @@
 
 # Following algorithm
 
-3_SAC_multi.py 실행
+'python SAC_following.py
