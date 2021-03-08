@@ -22,6 +22,7 @@ Python codes for planning algorithms
 ![Screenshot](./python/Image/dubins_path_at_once.png)
 
 # Optimal trajectory in Frenet frame
+![Screenshot](./python/video/optimal_planning.gif)
 
 
 
