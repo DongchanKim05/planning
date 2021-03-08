@@ -3,10 +3,11 @@
 Python codes for planning algorithms
 
 # Contents
-- Dijkstra
-- A*
+- Dijkstra algorithm
+- A* algorithm
+- Weighted A* algorithm
 - Dubins Path
-- Polynomial
+- Optimal Trajectory in Frenet Frame (polynomial)
 
 # reference
 - https://github.com/karlkurzer/path_planner
