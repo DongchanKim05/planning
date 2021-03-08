@@ -9,7 +9,11 @@ Python codes for planning algorithms
 - Dubins Path
 - Optimal Trajectory in Frenet Frame (polynomial)
 
-# reference
+# Dijstra algorithm
+![alt text](https://github.com/DongchanKim05/planning/tree/main/python/Image/a_star.png)
+
+
+# Reference
 - https://github.com/karlkurzer/path_planner
 - https://github.com/dawnjeanh/motionplanning
 - https://github.com/AtsushiSakai/PythonRobotics
