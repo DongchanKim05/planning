@@ -10,7 +10,18 @@ Python codes for planning algorithms
 - Optimal Trajectory in Frenet Frame (polynomial)
 
 # Dijstra algorithm
+![Screenshot](./python/Image/dijkstra.png)
+
+# A* algorithm
 ![Screenshot](./python/Image/a_star.png)
+
+# Weighted A* algorithm
+![Screenshot](./python/Image/a_star_weighted_1_2.png)
+
+# Dubins path
+![Screenshot](./python/Image/dubins_path_at_once.png)
+
+# Optimal trajectory in Frenet frame
 
 
 
