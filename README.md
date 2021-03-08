@@ -1,9 +1,12 @@
-# Planning
-
 # Planning Algorithms
 
+Python codes for planning algorithms
 
-
+# Contents
+- Dijkstra
+- A*
+- Dubins Path
+- Polynomial
 
 # reference
 - https://github.com/karlkurzer/path_planner
