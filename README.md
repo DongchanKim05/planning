@@ -10,7 +10,7 @@ Python codes for planning algorithms
 - Optimal Trajectory in Frenet Frame (polynomial)
 
 # Dijstra algorithm
-![plot](https://github.com/DongchanKim05/planning/tree/main/python/Image/a_star.png)
+![Screenshot](a_star.png)
 
 
 # Reference
