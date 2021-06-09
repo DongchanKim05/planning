@@ -8,7 +8,6 @@ Python codes for planning algorithms
 - Weighted A* algorithm
 - Dubins Path
 - Hybrid A* algorithm
--  - w/ steering angle set
 - Optimal Trajectory in Frenet Frame (polynomial)
 
 # Dijstra algorithm
