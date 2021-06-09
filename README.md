@@ -21,6 +21,12 @@ Python codes for planning algorithms
 # Dubins path
 ![Screenshot](./python/Image/dubins_path_at_once.png)
 
+# Hybrid A* w/ steering angle set
+![Screenshot](./python/Image/hybrid_a_star_steer.png)
+
+# Hybrid A* w/ Dubins path
+![Screenshot](./python/Image/hybrid_a_star_dubins.png)
+
 # Optimal trajectory in Frenet frame
 ![Screenshot](./python/video/optimal_planning.gif)
 
