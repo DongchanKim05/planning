@@ -8,6 +8,8 @@ Python codes for planning algorithms
 - Weighted A* algorithm
 - Dubins Path
 - Hybrid A* algorithm
+- RRT algorithm
+- RRT* algorithm
 - Optimal Trajectory in Frenet Frame (polynomial)
 
 # Dijstra algorithm
@@ -27,6 +29,12 @@ Python codes for planning algorithms
 
 # Hybrid A* w/ Dubins path
 ![Screenshot](./python/Image/hybrid_a_star_dubins.png)
+
+# RRT algorithm
+![Screenshot](./python/Image/rrt.png)
+
+# RRT* algorithm
+![Screenshot](./python/Image/rrt_star.png)
 
 # Optimal trajectory in Frenet frame
 ![Screenshot](./python/video/optimal_planning.gif)
